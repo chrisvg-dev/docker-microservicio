@@ -1,6 +1,9 @@
 package com.cvg.msvc.cursos.service;
 
+import com.cvg.msvc.cursos.client.UsuarioRestClient;
+import com.cvg.msvc.cursos.dto.Usuario;
 import com.cvg.msvc.cursos.models.entity.Curso;
+import com.cvg.msvc.cursos.models.entity.CursoUsuario;
 import com.cvg.msvc.cursos.models.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +14,12 @@ import java.util.Optional;
 
 @Service
 public class CursoServiceImpl implements CursoService {
+    private final UsuarioRestClient restClient;
     private final CursoRepository cursoRepository;
 
-    public CursoServiceImpl(CursoRepository cursoRepository) {
+    public CursoServiceImpl(CursoRepository cursoRepository, UsuarioRestClient restClient) {
         this.cursoRepository = cursoRepository;
+        this.restClient = restClient;
     }
 
     @Override
@@ -39,5 +44,62 @@ public class CursoServiceImpl implements CursoService {
     @Transactional
     public void deleteById(Long id) {
         this.cursoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> curso = this.cursoRepository.findById( cursoId );
+
+        if (curso.isPresent()){
+            Usuario usuarioMicroServicio = this.restClient.findById( usuario.getId() );
+
+            Curso c = curso.orElseThrow();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId( usuarioMicroServicio.getId() );
+
+            c.agregarCursoUsuario( cursoUsuario );
+            cursoRepository.save( c );
+            return Optional.of( usuarioMicroServicio );
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> curso = this.cursoRepository.findById( cursoId );
+
+        if (curso.isPresent()){
+            Usuario usuarioMicroServicio = this.restClient.save( usuario );
+
+            Curso c = curso.orElseThrow();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId( usuarioMicroServicio.getId() );
+
+            c.agregarCursoUsuario( cursoUsuario );
+            cursoRepository.save( c );
+            return Optional.of( usuarioMicroServicio );
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public Optional<Usuario> eliminarUsuario(Usuario usuario, Long cursoId) {
+        Optional<Curso> curso = this.cursoRepository.findById( cursoId );
+
+        if (curso.isPresent()){
+            Usuario usuarioMicroServicio = this.restClient.findById( usuario.getId() );
+
+            Curso c = curso.orElseThrow();
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId( usuarioMicroServicio.getId() );
+
+            c.eliminarCursoUsuario( cursoUsuario );
+            cursoRepository.save( c );
+            return Optional.of( usuarioMicroServicio );
+        }
+        return Optional.empty();
     }
 }

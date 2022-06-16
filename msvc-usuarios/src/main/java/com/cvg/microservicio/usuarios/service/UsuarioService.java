@@ -12,4 +12,6 @@ public interface UsuarioService {
     Usuario save(Usuario usuario);
     void deleteUser(Long id);
     Boolean existsByEmail(String email);
+
+    List<Usuario> findAllById( Iterable<Long> ids );
 }

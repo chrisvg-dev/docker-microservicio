@@ -8,10 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @CrossOrigin(originPatterns = "*")
@@ -47,7 +44,7 @@ public class UsuarioController {
 
         Boolean isEmailAvailable = this.usuarioService.existsByEmail( usuario.getEmail() );
         if (isEmailAvailable) {
-            return ResponseEntity.badRequest().body( "El email ya está asociado a otro usuario" );
+            return ResponseEntity.badRequest().body(Collections.singletonMap("message", "El email ya está asociado a otro usuario"));
         }
         return ResponseEntity.status(HttpStatus.CREATED).body( this.usuarioService.save(usuario) );
     }
@@ -61,7 +58,7 @@ public class UsuarioController {
 
         Boolean isEmailAvailable = this.usuarioService.existsByEmail( usuario.getEmail() );
         if (isEmailAvailable) {
-            return ResponseEntity.badRequest().body( "El email ya está asociado a otro usuario" );
+            return ResponseEntity.badRequest().body( Collections.singletonMap("message", "El email ya está asociado a otro usuario") );
         }
         Optional<Usuario> optional = this.usuarioService.findById(id);
         if (optional.isPresent()) {
@@ -85,6 +82,12 @@ public class UsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/usuarios-por-cursos")
+    public ResponseEntity<?> obtenerAlumnosPorCurso(@RequestParam List<Long> ids ){
+        return ResponseEntity.ok( this.usuarioService.findAllById( ids ) );
+    }
+
 
     private ResponseEntity<Map<String, String>> validate(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
