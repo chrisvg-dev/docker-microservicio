@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/api/cursos")
 @CrossOrigin(originPatterns = "*")
 public class CursoController {
     private final CursoService cursoService;
@@ -30,7 +30,7 @@ public class CursoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Curso> findById(@PathVariable Long id) {
-        Optional<Curso> curso = this.cursoService.findById(id);
+        Optional<Curso> curso = this.cursoService.porIdConUsuarios(id);//this.cursoService.findById(id);
         if (curso.isPresent()) {
             return ResponseEntity.ok(curso.orElseThrow());
         }

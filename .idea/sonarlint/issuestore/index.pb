@@ -1,3 +1,23 @@
 
 ‡
 Wmsvc-usuarios/src/main/java/com/cvg/microservicio/usuarios/MsvcUsuariosApplication.java,f\6\f63dc8557a046b78a250abdd691e1a4a82792fd4
+“
+cmsvc-usuarios/src/main/java/com/cvg/microservicio/usuarios/models/repository/UsuarioRepository.java,a\0\a0af7f9886922ba431e618fbd3cb11d9681c9566
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+„
+Tmsvc-cursos/src/main/java/com/cvg/msvc/cursos/models/repository/CursoRepository.java,e\6\e6876b342a065c62b460861925e2bf004629dbff
+C
+msvc-cursos/pom.xml,c\9\c992d90804b37b1ae4d2f0e63baab9da8288400a
+E
+msvc-usuarios/pom.xml,3\5\35db51b5be2bab04530d7f81843e70f086e9aaf0
+…
+Umsvc-usuarios/src/main/java/com/cvg/microservicio/usuarios/models/entity/Usuario.java,e\3\e31d21ce4809aebea179a0e7baa191c719afa2b8
+n
+>msvc-cursos/src/main/java/com/cvg/msvc/cursos/dto/Usuario.java,8\5\85bc3e3b60ee24fec7c2c1ce271e765ed3464099
+}
+Mmsvc-cursos/src/main/java/com/cvg/msvc/cursos/models/entity/CursoUsuario.java,6\3\63162985c86683f89ca4b66f6ce38316093b8cfa
+v
+Fmsvc-cursos/src/main/java/com/cvg/msvc/cursos/models/entity/Curso.java,7\f\7fc6ad35801b10ece1e4f175ef2354a4526b9c35
+x
+Hmsvc-cursos/src/main/java/com/cvg/msvc/cursos/MsvcCursosApplication.java,7\e\7ecafd172a90020876717793abeea44c4fa74d5a

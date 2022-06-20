@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface CursoService {
     List<Curso> findAll();
     Optional<Curso> findById(Long id);
+    Optional<Curso> porIdConUsuarios(Long id);
     Curso save(Curso curso);
     void deleteById(Long id);
 
