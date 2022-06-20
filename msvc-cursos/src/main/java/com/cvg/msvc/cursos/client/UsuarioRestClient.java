@@ -18,6 +18,6 @@ public interface UsuarioRestClient {
     @PostMapping("/api/usuarios")
     Usuario save(@RequestBody Usuario usuario);
 
-    @GetMapping("/api/usuarios/ usuarios-por-cursos")
+    @GetMapping("/api/usuarios/usuarios-por-cursos")
     List<Usuario> obtenerAlumnosPorId(@RequestParam Iterable<Long> ids);
 }

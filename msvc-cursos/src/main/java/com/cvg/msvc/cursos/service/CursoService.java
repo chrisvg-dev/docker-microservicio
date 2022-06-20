@@ -13,6 +13,8 @@ public interface CursoService {
     Curso save(Curso curso);
     void deleteById(Long id);
 
+    void eliminarCursoUsuarioPorId(Long id);
+
     /**
      * CONEXION CON EL MICROSERVICIO USUARIOS
      * @param usuario

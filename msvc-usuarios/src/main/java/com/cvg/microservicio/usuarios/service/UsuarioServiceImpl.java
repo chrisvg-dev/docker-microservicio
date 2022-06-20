@@ -1,5 +1,6 @@
 package com.cvg.microservicio.usuarios.service;
 
+import com.cvg.microservicio.usuarios.client.CursoClienteRest;
 import com.cvg.microservicio.usuarios.models.entity.Usuario;
 import com.cvg.microservicio.usuarios.models.repository.UsuarioRepository;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import java.util.Optional;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
     private static final Logger log = LoggerFactory.getLogger(UsuarioServiceImpl.class);
+
+    @Autowired private CursoClienteRest clienteRest;
 
     private final UsuarioRepository usuarioRepository;
 
@@ -53,6 +56,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void deleteUser(Long id) {
         this.usuarioRepository.deleteById(id);
+        clienteRest.eliminarCursoUsuario(id);
     }
 
     @Override
